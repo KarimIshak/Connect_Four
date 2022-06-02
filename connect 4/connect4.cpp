@@ -1,7 +1,7 @@
-#include<iostream>
+#include<iostream> // I made a slight edit on the game rules which allows user to choose the number of players in the same game .. capped at 4 and minimized at 2
 #include<cmath>
 using namespace std;
-char num[6][7] = { {' ' , ' ', ' ' ,' ',' ',' ',' '},
+char num[6][7] = { {' ' , ' ', ' ' ,' ',' ',' ',' '}, //6 rows and 7 colomns.. represented as a 2d array of characters
 {' ' , ' ', ' ' ,' ',' ',' ',' '},
 {' ' , ' ', ' ' ,' ',' ',' ',' '},
 {' ' , ' ', ' ' ,' ',' ',' ',' '},
@@ -24,21 +24,21 @@ int main()
     while(true){
     cin >> players;
     if (players<2 || players >4 ){
-    cout <<"Please select a number of players from 2 to 4: ";}
+    cout <<"Please select a number of players from 2 to 4: ";} //capping number of players
     else{
     for (int i = 0 ; i < players ;i++)
     {
         cout <<"Player " <<(i+1) <<" please enter your 1-character symbol: ";
         while (true)
         {
-            int symbol_taken = 0;
+            int symbol_taken = 0; // making every player has his unique symbol 
             cin >> symbol;
             for (int j = 0 ; j<4 ;j++)
             {
                 if (symbol == symbols[j])
                 {
                     cout <<"symbol is already taken! try another: ";
-                    symbol_taken++;
+                    symbol_taken++; // flag if symbol is taken which allows user to enter another symbol
                     break;
                 }
             }
@@ -47,13 +47,13 @@ int main()
             break;}
         }
     }
-    break;}
+    break;} // to the next step
     }
     cout <<"------------------------------------------------------\n";
-    cout <<"C   O   N   N   E   C   T   F   O   U   R \n";
+    cout <<"C   O   N   N   E   C   T   F   O   U   R \n"; //main interface of the game
     score();
     interface();
-    while (true){
+    while (true){ //making an infinity loop so that the game doesn't end after the first round *player 4 if existed play*
     Player1_turn();}
 }
 void ifdraw()
@@ -74,25 +74,25 @@ void ifwon()
     {
         for (int j = 0 ; j < 7 ; j++)
         {
-            if (num[i][j] != ' ')
+            if (num[i][j] != ' ')//trying to avoid logical errors as much as possible
             {
-                if ( ((num[i][j] == num[i][(j+1)]) && (num[i][j] == num[i][(j+2)]) && (num[i][j] == num[i][(j+3)])) )
+                if ( ((num[i][j] == num[i][(j+1)]) && (num[i][j] == num[i][(j+2)]) && (num[i][j] == num[i][(j+3)])) ) // 4 numbers in one row
                 {
                     if (((j+1) != 7) && ((j+2) != 7) && ((j+3) !=7))
                     {
                     if (num[i][j] == symbols[0]){
-                    cout <<"Player 1 is the winner!\n"; P1_win++;}
+                    cout <<"Player 1 is the winner!\n"; P1_win++;} //the p1 , p2 , p3 and p4 thing is just a counter to add some compitition
                     else if (num[i][j] == symbols[1]){
                     cout <<"Player 2 is the winner!\n"; P2_win++;}
                     else if (num[i][j] == symbols[2]){
                     cout <<"Player 3 is the winner!\n"; P3_win++;}
                     else if (num[i][j] == symbols[3]){
                     cout <<"Player 4 is the winner!\n"; P4_win++;}
-                    winner++;
+                    winner++; //flag so the game ends
                     Playagain();
                     }
                 }
-                if (((num[i][j] == num[(i+1)][j]) && (num[i][j] == num[(i+2)][j]) && (num[i][j] == num[(i+3)][j])))
+                if (((num[i][j] == num[(i+1)][j]) && (num[i][j] == num[(i+2)][j]) && (num[i][j] == num[(i+3)][j]))) // 4 numbers in one coloumn
                 {
                     if (num[i][j] == symbols[0]){
                     cout <<"Player 1 is the winner!\n"; P1_win++;}
@@ -105,7 +105,7 @@ void ifwon()
                     winner++;
                     Playagain();
                 }
-                if (((num[i][j] == num[(i+1)][(j+1)]) && (num[i][j] == num[(i+2)][(j+2)]) && (num[i][j] == num[(i+3)][(j+3)])))
+                if (((num[i][j] == num[(i+1)][(j+1)]) && (num[i][j] == num[(i+2)][(j+2)]) && (num[i][j] == num[(i+3)][(j+3)]))) //right diagonal
                 {
                     if ( (((j+1) != 7) || ((i+1) !=6)) && (((j+2) != 7) || ((i+2) !=6)) && (((j+3) != 7) || ((i+3) !=6)))
                     {
@@ -121,7 +121,7 @@ void ifwon()
                     Playagain();
                     }
                 }
-                if(((num[i][j] == num[(i+1)][(j-1)]) && (num[i][j] == num[(i+2)][(j-2)]) && (num[i][j] == num[(i+3)][(j-3)])))
+                if(((num[i][j] == num[(i+1)][(j-1)]) && (num[i][j] == num[(i+2)][(j-2)]) && (num[i][j] == num[(i+3)][(j-3)]))) //left diagonal
                 {
                     if ( (((j-1) >= 0) || ((i+1) !=6)) && (((j-2) >= 0) || ((i+2) !=6)) && (((j-3) >= 0) || ((i+3) !=6)))
                     {
@@ -152,9 +152,9 @@ void interface()
             cout <<"| " <<num[i][j] <<" |" ;
         }
         cout <<"|\n";
-        cout <<"||---||---||---||---||---||---||---||\n";
+        cout <<"||---||---||---||---||---||---||---||\n"; //tried to make it look nice as much as possible
     }
-            cout <<"   1    2    3    4    5    6    7\n";
+            cout <<"   1    2    3    4    5    6    7\n"; //help users to define the targeted line
 }
 void Player4_turn()
 {
@@ -166,13 +166,13 @@ void Player4_turn()
     cin >> line;
     if (line <1 || line > 7)
     cout <<"Please enter a line from 1 to 7: ";
-    else if (num[0][(line-1)] != ' ')
+    else if (num[0][(line-1)] != ' ') //giving another chance when input is in a fully occubied line
     {
     cout <<"line is completed! go for another play: ";
     }
     else if (line >=1 && line <=7)
     {
-        for (int i = 5 ; i>=0 ; i-=1)
+        for (int i = 5 ; i>=0 ; i-=1) //starting from below -- if the index is busy it goes up
         {
             if (num[i][(line-1)] == ' ')
             {
@@ -213,7 +213,7 @@ void Player3_turn()
         break;
     }
     }
-    if (players>3)
+    if (players>3) // giving a chance for a 4th player
     Player4_turn();
 }
 void Player2_turn()
@@ -244,7 +244,7 @@ void Player2_turn()
         break;
     }
     }
-    if (players>2)
+    if (players>2) //it's a two-people based game but i decided to make it up to 4
     Player3_turn();
 }
 void Player1_turn()
@@ -277,31 +277,31 @@ void Player1_turn()
     }
     Player2_turn();
 }
-void Playagain()
+void Playagain() //an option to re-match if users had enough fun to do so
 {
-    cout <<"Do you want to play again? (Y/N): "; cin >> answer;
+    cout <<"Do you want to play again? (Y/N): "; cin >> answer; 
     if (answer == 'Y' || answer == 'y')
     {
         for (int i = 0 ; i < 6 ; i++)
         {
             for (int j = 0 ; j<7 ; j++)
             {
-                num[i][j] = ' ';
+                num[i][j] = ' '; //resetting our connect 4
             }
         }
         for (int i = 0 ; i <4 ; i++)
         {
-            symbols[i] = 0;
+            symbols[i] = 0; //ressetting symbols so users can take the same symbol every time
         }
 main();
     }
 }
-void score()
+void score() //i like compititional games .. but how can i do this after only learning basics? let me try
 {
-    cout <<"Player 1: " <<P1_win << " || Player 2: " <<P2_win;
-    if (players == 3)
+    cout <<"Player 1: " <<P1_win << " || Player 2: " <<P2_win; //no way it can be less than 2 players
+    if (players == 3) //giving chance for 3rd player to join the compitition
     cout <<" || Player 3: " <<P3_win <<endl;
-    else if (players == 4)
+    else if (players == 4) //4th guy for more fun
     cout <<" || Player 3: " <<P3_win <<" || Player 4: " <<P4_win <<endl;
     else cout <<endl;
 }
